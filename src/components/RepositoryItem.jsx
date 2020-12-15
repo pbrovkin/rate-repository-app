@@ -8,7 +8,7 @@ const RepositoryItem = ({ item }) => {
       <Text>Description: {item.description}</Text>
       <Text>Language: {item.language}</Text>
       <Text>Forks: {item.forksCount}</Text>
-      <Text>Starts: {item.stargazersCount}</Text>
+      <Text>Stars: {item.stargazersCount}</Text>
       <Text>Rating: {item.ratingAverage}</Text>
       <Text>Reviews: {item.reviewCount}</Text>
     </View>
