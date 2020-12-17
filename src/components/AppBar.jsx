@@ -11,7 +11,11 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-  return <View style={styles.container}>{/* ... */}</View>;
+  return (
+    <View style={styles.container}>
+      <AppBarTab link='/' name='Repositories' />
+    </View>
+  );
 };
 
 export default AppBar;
