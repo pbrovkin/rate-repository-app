@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { Link } from 'react-router-native';
 
 import Text from './Text';
 
@@ -10,11 +11,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBarTab = ({ name }) => {
+const AppBarTab = ({ name, link }) => {
   return (
-    <TouchableWithoutFeedback onPress={() => alert('Pressed!')}>
+    <Link to={link} component={TouchableWithoutFeedback}>
       <Text color='appTab' fontWeight='bold' style={styles.tab}>{name}</Text>
-    </TouchableWithoutFeedback>
+    </Link>
   );
 };
 
