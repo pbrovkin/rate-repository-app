@@ -14,18 +14,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
   },
-  /* inputField: {
-    margin: 5,
-    padding: 5,
-    borderWidth: 1,
-    borderRadius: 3,
-  },
-  grayBorder: {
-    borderColor: theme.colors.mainBg,
-  },
-  redBorder: {
-    borderColor: '#d73a4a',
-  }, */
   button: {
     padding: 10,
     margin: 5,
@@ -51,10 +39,6 @@ const validationSchema = yup.object().shape({
 });
 
 const SignInForm = ({ onSubmit }) => {
-  /* const borderStyles = [
-    styles.inputField,
-    error ? styles.grayBorder : styles.redBorder
-  ]; */
   return (
     <View style={styles.form}>
       <FormikTextInput name='username' placeholder='Username' />
