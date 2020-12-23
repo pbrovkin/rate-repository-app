@@ -14,13 +14,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
   },
-  inputField: {
+  /* inputField: {
     margin: 5,
     padding: 5,
     borderWidth: 1,
-    borderColor: theme.colors.mainBg,
     borderRadius: 3,
   },
+  grayBorder: {
+    borderColor: theme.colors.mainBg,
+  },
+  redBorder: {
+    borderColor: '#d73a4a',
+  }, */
   button: {
     padding: 10,
     margin: 5,
@@ -46,14 +51,14 @@ const validationSchema = yup.object().shape({
 });
 
 const SignInForm = ({ onSubmit }) => {
+  /* const borderStyles = [
+    styles.inputField,
+    error ? styles.grayBorder : styles.redBorder
+  ]; */
   return (
     <View style={styles.form}>
-      <View style={styles.inputField}>
-        <FormikTextInput name='username' placeholder='Username' />
-      </View>
-      <View style={styles.inputField}>
-        <FormikTextInput name='password' placeholder='Password' secureTextEntry />
-      </View>
+      <FormikTextInput name='username' placeholder='Username' />
+      <FormikTextInput name='password' placeholder='Password' secureTextEntry />
       <TouchableWithoutFeedback onPress={onSubmit}>
         <Text fontSize='subheading' fontWeight='bold' style={styles.button}>Sign In</Text>
       </TouchableWithoutFeedback>
