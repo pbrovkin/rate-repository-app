@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export const GET_REPOSITORIES = gql`
-  query {
+  query getRepositories {
     repositories {
       edges {
         node {
@@ -16,6 +16,15 @@ export const GET_REPOSITORIES = gql`
           ownerAvatarUrl
         }
       }
+    }
+  }
+`;
+
+export const AUTHORIZED_USER = gql`
+  query authorizedUser {
+    authorizedUser {
+      id
+      username
     }
   }
 `;
