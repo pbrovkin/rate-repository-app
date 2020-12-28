@@ -11,18 +11,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const kSuffix = (value) => {
-  if (value > 999) {
-    return Math.round(value / 100) / 10 + 'k';
-  } else {
-    return value;
-  }
-};
+export const kSuffix = (value) => value > 999 ? Math.round(value / 100) / 10 + 'k' : value;
 
 const StatsTag = ({ name, stat, flag = true, style }) => {
   return (
     <View style={{ ...style, ...styles.container }}>
-      <Text fontWeight='bold'>{flag ? kSuffix(stat) : stat}</Text>
+      <Text fontWeight='bold' testID={name}>{flag ? kSuffix(stat) : stat}</Text>
       <Text color='textSecondary'>{name}</Text>
     </View>
   );
