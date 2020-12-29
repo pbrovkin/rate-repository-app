@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableWithoutFeedback, Linking } from 'react-native';
 
 import Text from './Text';
 import LanguageTag from './LanguageTag';
 import StatsTag from './StatsTag';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,6 +40,10 @@ const styles = StyleSheet.create({
 });
 
 const RepositoryItem = ({ item }) => {
+  const onPressLink = (url) => {
+    Linking.openURL(url);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -59,6 +64,16 @@ const RepositoryItem = ({ item }) => {
         <StatsTag name='Reviews' stat={item.reviewCount} style={styles.statItem} />
         <StatsTag name='Rating' stat={item.ratingAverage} flag={false} style={styles.statItem} />
       </View>
+      {item.url
+        ?
+        <View>
+          <TouchableWithoutFeedback onPress={() => onPressLink(item.url)}>
+            <Text fontSize='subheading' fontWeight='bold' style={theme.button}>
+              Open in GitHub
+            </Text>
+          </TouchableWithoutFeedback>
+        </View>
+        : null}
     </View>
   );
 };

@@ -15,14 +15,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
   },
-  button: {
-    padding: 10,
-    margin: 5,
-    textAlign: 'center',
-    borderRadius: 3,
-    color: theme.colors.button,
-    backgroundColor: theme.colors.primary,
-  },
 });
 
 const initialValues = {
@@ -45,7 +37,7 @@ const SignInForm = ({ onSubmit }) => {
       <FormikTextInput name='username' placeholder='Username' testID='username' />
       <FormikTextInput name='password' placeholder='Password' secureTextEntry testID='password' />
       <TouchableWithoutFeedback onPress={onSubmit} testID='signInButton'>
-        <Text fontSize='subheading' fontWeight='bold' style={styles.button}>Sign In</Text>
+        <Text fontSize='subheading' fontWeight='bold' style={theme.button}>Sign In</Text>
       </TouchableWithoutFeedback>
     </View>
   );

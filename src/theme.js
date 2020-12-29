@@ -25,6 +25,14 @@ const theme = {
     normal: '400',
     bold: '700',
   },
+  button: {
+    padding: 10,
+    margin: 5,
+    textAlign: 'center',
+    borderRadius: 3,
+    color: '#ffffff',
+    backgroundColor: '#0366d6',
+  },
 };
 
 export default theme;
