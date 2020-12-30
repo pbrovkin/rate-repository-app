@@ -32,9 +32,12 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab link='/' name='Repositories' />
-        {!authorizedUser
-          ? <AppBarTab link='/signin' name='Sign in' />
-          : <AppBarTab name='Sign out' onPress={() => signOut()} />}
+        {!authorizedUser ?
+          <AppBarTab link='/signin' name='Sign in' /> :
+          <>
+            <AppBarTab link='/createReview' name='Create a review' />
+            <AppBarTab name='Sign out' onPress={() => signOut()} />
+          </>}
       </ScrollView>
     </View>
   );
