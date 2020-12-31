@@ -11,7 +11,7 @@ const useSignIn = () => {
   const apolloClient = useApolloClient();
   const history = useHistory();
 
-  const [mutate, result] = useMutation(AUTHORIZE);
+  const [mutate] = useMutation(AUTHORIZE);
 
   const signIn = async ({ username, password }) => {
     const { data } = await mutate({ variables: { username, password } });
@@ -20,7 +20,7 @@ const useSignIn = () => {
     history.push('/');
   };
 
-  return [signIn, result];
+  return signIn;
 };
 
 export default useSignIn;
