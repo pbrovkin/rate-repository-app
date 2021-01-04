@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-native';
 
@@ -27,6 +27,9 @@ export const RepositoryListContainer = ({ repositories }) => {
 };
 
 const RepositoryList = () => {
+  const [orderBy, setOrderBy] = useState('CREATED_AT');
+  const [orderDirection, setOrderDirection] = useState('DESC');
+
   const { repositories } = useRepositories();
 
   return <RepositoryListContainer repositories={repositories} />;
