@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-native';
+import { Picker } from '@react-native-community/picker';
 
 import ItemSeparator from './ItemSeparator';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 
-export const RepositoryListContainer = ({ repositories }) => {
+const OrderBy = ({ setOrderBy }) => {
+  return (
+    <Picker
+      onValueChange={(value) =>
+        setOrderBy(value)
+      }>
+      <Picker.Item label='Latest repositories' value='latest' />
+      <Picker.Item label='Highest rated repositories' value='highest' />
+      <Picker.Item label='Lowest rated repositories' value='lowest' />
+    </Picker>
+  )
+}
+
+export const RepositoryListContainer = ({ repositories, setOrderBy }) => {
   const history = useHistory();
 
   const repositoryNodes = repositories
@@ -22,17 +36,17 @@ export const RepositoryListContainer = ({ repositories }) => {
           <RepositoryItem item={item} />
         </TouchableOpacity>
       )}
+      ListHeaderComponent={<OrderBy setOrderBy={setOrderBy} />}
     />
   );
 };
 
 const RepositoryList = () => {
-  const [orderBy, setOrderBy] = useState('CREATED_AT');
-  const [orderDirection, setOrderDirection] = useState('DESC');
+  const [orderBy, setOrderBy] = useState('latest');
 
   const { repositories } = useRepositories();
 
-  return <RepositoryListContainer repositories={repositories} />;
+  return <RepositoryListContainer repositories={repositories} setOrderBy={setOrderBy} />;
 };
 
 export default RepositoryList;
