@@ -7,12 +7,14 @@ import ItemSeparator from './ItemSeparator';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 
-const OrderBy = ({ setOrderBy }) => {
+const OrderBy = ({ orderBy, setOrderBy }) => {
   return (
     <Picker
+      selectedValue={orderBy}
       onValueChange={(value) =>
         setOrderBy(value)
       }>
+      <Picker.Item label='Options' />
       <Picker.Item label='Latest repositories' value='latest' />
       <Picker.Item label='Highest rated repositories' value='highest' />
       <Picker.Item label='Lowest rated repositories' value='lowest' />
@@ -46,7 +48,7 @@ const RepositoryList = () => {
 
   const { repositories } = useRepositories();
 
-  return <RepositoryListContainer repositories={repositories} setOrderBy={setOrderBy} />;
+  return <RepositoryListContainer repositories={repositories} orderBy={orderBy} setOrderBy={setOrderBy} />;
 };
 
 export default RepositoryList;
