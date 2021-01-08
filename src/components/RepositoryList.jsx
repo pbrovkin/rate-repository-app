@@ -44,9 +44,27 @@ export const RepositoryListContainer = ({ repositories, setOrderBy }) => {
 };
 
 const RepositoryList = () => {
-  const [orderBy, setOrderBy] = useState('latest');
+  const [orderBy, setOrderBy] = useState('CREATED_AT');
+  const [orderDirection, setOrderDirection] = useState('DESC');
 
   const { repositories } = useRepositories();
+
+  const setOrder = (value) => {
+    switch (value) {
+      case 'latest':
+        setOrderBy('CREATED_AT');
+        setOrderDirection('DESC');
+        break;
+      case ('highest'):
+        setOrderBy('RATING_AVERAGE');
+        setOrderDirection('DESC');
+        break;
+      case ('lowest'):
+        setOrderBy('RATING_AVERAGE');
+        setOrderDirection('ASC');
+        break;
+    }
+  }
 
   return <RepositoryListContainer repositories={repositories} orderBy={orderBy} setOrderBy={setOrderBy} />;
 };
