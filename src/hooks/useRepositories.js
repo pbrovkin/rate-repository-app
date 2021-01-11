@@ -2,12 +2,14 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { GET_REPOSITORIES } from '../qraphql/queries';
 
-const useRepositories = () => {
+const useRepositories = (variables) => {
   const { data, loading } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: 'cache-and-network',
+    variables: variables,
   });
+
   return {
-    repositories: data ? data.repositories : undefined,
+    data,
     loading,
   };
 };

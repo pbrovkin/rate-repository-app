@@ -7,12 +7,12 @@ import ItemSeparator from './ItemSeparator';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 
-const OrderBy = ({ orderBy, setOrderBy }) => {
+const OrderBy = ({ orderBy, setOrder }) => {
   return (
     <Picker
       selectedValue={orderBy}
       onValueChange={(value) =>
-        setOrderBy(value)
+        setOrder(value)
       }>
       <Picker.Item label='Options' />
       <Picker.Item label='Latest repositories' value='latest' />
@@ -22,7 +22,7 @@ const OrderBy = ({ orderBy, setOrderBy }) => {
   )
 }
 
-export const RepositoryListContainer = ({ repositories, setOrderBy }) => {
+export const RepositoryListContainer = ({ repositories, setOrder }) => {
   const history = useHistory();
 
   const repositoryNodes = repositories
@@ -38,7 +38,7 @@ export const RepositoryListContainer = ({ repositories, setOrderBy }) => {
           <RepositoryItem item={item} />
         </TouchableOpacity>
       )}
-      ListHeaderComponent={<OrderBy setOrderBy={setOrderBy} />}
+      ListHeaderComponent={<OrderBy setOrder={setOrder} />}
     />
   );
 };
@@ -47,7 +47,7 @@ const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState('CREATED_AT');
   const [orderDirection, setOrderDirection] = useState('DESC');
 
-  const { repositories } = useRepositories();
+  const { data } = useRepositories({ orderBy, orderDirection });
 
   const setOrder = (value) => {
     switch (value) {
@@ -66,7 +66,12 @@ const RepositoryList = () => {
     }
   }
 
-  return <RepositoryListContainer repositories={repositories} orderBy={orderBy} setOrderBy={setOrderBy} />;
+  return (
+    <RepositoryListContainer
+      repositories={data ? data.repositories : null}
+      setOrder={setOrder}
+    />
+  );
 };
 
 export default RepositoryList;
