@@ -2,19 +2,41 @@ import React, { useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-native';
 import { Picker } from '@react-native-community/picker';
+import { Searchbar } from 'react-native-paper';
+import { useDebounce } from 'use-debounce';
 
 import ItemSeparator from './ItemSeparator';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 
+import theme from '../theme';
+
+const Search = ({ setSearchKeyword }) => {
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const onChangeSearch = (query) => {
+    setSearchQuery(query);
+    setSearchKeyword(query);
+  }
+
+  return (
+    <Searchbar
+      placeholder='Search'
+      onChangeText={onChangeSearch}
+      value={searchQuery}
+    />
+  );
+};
+
 const OrderBy = ({ orderBy, setOrder }) => {
   return (
     <Picker
       selectedValue={orderBy}
+      style={{ color: theme.colors.textSecondary, marginLeft: 50 }}
       onValueChange={(value) =>
         setOrder(value)
       }>
-      <Picker.Item label='Options' />
+      <Picker.Item label='Options...' />
       <Picker.Item label='Latest repositories' value='latest' />
       <Picker.Item label='Highest rated repositories' value='highest' />
       <Picker.Item label='Lowest rated repositories' value='lowest' />
@@ -22,7 +44,7 @@ const OrderBy = ({ orderBy, setOrder }) => {
   )
 }
 
-export const RepositoryListContainer = ({ repositories, setOrder }) => {
+export const RepositoryListContainer = ({ repositories, setOrder, setSearchKeyword }) => {
   const history = useHistory();
 
   const repositoryNodes = repositories
@@ -38,7 +60,12 @@ export const RepositoryListContainer = ({ repositories, setOrder }) => {
           <RepositoryItem item={item} />
         </TouchableOpacity>
       )}
-      ListHeaderComponent={<OrderBy setOrder={setOrder} />}
+      ListHeaderComponent={
+        <>
+          <Search setSearchKeyword={setSearchKeyword} />
+          <OrderBy setOrder={setOrder} />
+        </>
+      }
     />
   );
 };
@@ -46,8 +73,10 @@ export const RepositoryListContainer = ({ repositories, setOrder }) => {
 const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState('CREATED_AT');
   const [orderDirection, setOrderDirection] = useState('DESC');
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchDebounce] = useDebounce(searchKeyword, 500);
 
-  const { data } = useRepositories({ orderBy, orderDirection });
+  const { data } = useRepositories({ orderBy, orderDirection, searchKeyword: searchDebounce });
 
   const setOrder = (value) => {
     switch (value) {
@@ -70,6 +99,7 @@ const RepositoryList = () => {
     <RepositoryListContainer
       repositories={data ? data.repositories : null}
       setOrder={setOrder}
+      setSearchKeyword={setSearchKeyword}
     />
   );
 };
