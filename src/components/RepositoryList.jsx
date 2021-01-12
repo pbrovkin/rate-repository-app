@@ -14,7 +14,7 @@ import theme from '../theme';
 const styles = StyleSheet.create({
   picker: {
     height: 35,
-    marginLeft: 290,
+    marginLeft: 280,
     color: theme.colors.textSecondary
   },
   search: {
@@ -50,7 +50,7 @@ const OrderBy = ({ orderBy, setOrder }) => {
       onValueChange={(value) =>
         setOrder(value)
       }>
-      <Picker.Item label='Options' />
+      <Picker.Item label='Options...' />
       <Picker.Item label='Latest repositories' value='latest' />
       <Picker.Item label='Highest rated repositories' value='highest' />
       <Picker.Item label='Lowest rated repositories' value='lowest' />
