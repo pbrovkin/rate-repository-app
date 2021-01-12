@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useHistory } from 'react-router-native';
 import { Picker } from '@react-native-community/picker';
 import { Searchbar } from 'react-native-paper';
@@ -10,6 +10,19 @@ import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 
 import theme from '../theme';
+
+const styles = StyleSheet.create({
+  picker: {
+    height: 35,
+    marginLeft: 290,
+    color: theme.colors.textSecondary
+  },
+  search: {
+    height: 30,
+    margin: 15,
+    marginBottom: 0
+  },
+});
 
 const Search = ({ setSearchKeyword }) => {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -22,6 +35,7 @@ const Search = ({ setSearchKeyword }) => {
   return (
     <Searchbar
       placeholder='Search'
+      style={styles.search}
       onChangeText={onChangeSearch}
       value={searchQuery}
     />
@@ -32,11 +46,11 @@ const OrderBy = ({ orderBy, setOrder }) => {
   return (
     <Picker
       selectedValue={orderBy}
-      style={{ color: theme.colors.textSecondary, marginLeft: 50 }}
+      style={styles.picker}
       onValueChange={(value) =>
         setOrder(value)
       }>
-      <Picker.Item label='Options...' />
+      <Picker.Item label='Options' />
       <Picker.Item label='Latest repositories' value='latest' />
       <Picker.Item label='Highest rated repositories' value='highest' />
       <Picker.Item label='Lowest rated repositories' value='lowest' />
