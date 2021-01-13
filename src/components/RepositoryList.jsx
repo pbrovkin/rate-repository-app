@@ -58,7 +58,12 @@ const OrderBy = ({ orderBy, setOrder }) => {
   )
 }
 
-export const RepositoryListContainer = ({ repositories, setOrder, setSearchKeyword }) => {
+export const RepositoryListContainer = ({
+  repositories,
+  setOrder,
+  setSearchKeyword,
+  onEndReach
+}) => {
   const history = useHistory();
 
   const repositoryNodes = repositories
@@ -80,6 +85,8 @@ export const RepositoryListContainer = ({ repositories, setOrder, setSearchKeywo
           <OrderBy setOrder={setOrder} />
         </>
       }
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -90,7 +97,16 @@ const RepositoryList = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchDebounce] = useDebounce(searchKeyword, 500);
 
-  const { data } = useRepositories({ orderBy, orderDirection, searchKeyword: searchDebounce });
+  const { repositories, fetchMore } = useRepositories({
+    orderBy,
+    orderDirection,
+    searchKeyword: searchDebounce,
+    first: 5
+  });
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   const setOrder = (value) => {
     switch (value) {
@@ -111,9 +127,10 @@ const RepositoryList = () => {
 
   return (
     <RepositoryListContainer
-      repositories={data ? data.repositories : null}
+      repositories={repositories}
       setOrder={setOrder}
       setSearchKeyword={setSearchKeyword}
+      onEndReach={onEndReach}
     />
   );
 };
