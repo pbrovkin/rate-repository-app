@@ -39,34 +39,6 @@ export const GET_REPOSITORIES = gql`
   }
 `;
 
-/* export const GET_REPOSITORIES = gql`
-  query getRepositories(
-    $orderBy: AllRepositoriesOrderBy!, 
-    $orderDirection: OrderDirection!, 
-    $searchKeyword: String,
-    ) {
-    repositories(
-      orderBy: $orderBy
-      orderDirection: $orderDirection
-      searchKeyword: $searchKeyword
-      ) {
-      edges {
-        node {
-          id
-          fullName
-          description
-          language
-          forksCount
-          stargazersCount
-          ratingAverage
-          reviewCount
-          ownerAvatarUrl
-        }
-      }
-    }
-  }
-`; */
-
 export const SINGLE_REPOSITORY = gql`
   query repository($id: ID!) {
     repository(id: $id) {
