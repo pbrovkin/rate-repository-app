@@ -40,6 +40,7 @@ const AppBar = () => {
           :
           <>
             <AppBarTab link='/createReview' name='Create a review' />
+            <AppBarTab link='/myReviews' name='My reviews' />
             <AppBarTab name='Sign out' onPress={() => signOut()} />
           </>}
       </ScrollView>
