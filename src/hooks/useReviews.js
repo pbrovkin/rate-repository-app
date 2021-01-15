@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { AUTHORIZED_USER } from '../qraphql/queries'
 
 const useReviews = (variables) => {
-  const { data, loading } =
+  const { data, loading, refetch } =
     useQuery(AUTHORIZED_USER, {
       fetchPolicy: 'cache-and-network',
       variables
@@ -11,7 +11,8 @@ const useReviews = (variables) => {
 
   return {
     reviews: data ? data.authorizedUser.reviews : undefined,
-    loading
+    loading,
+    refetch
   };
 };
 

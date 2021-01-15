@@ -5,8 +5,9 @@ import ReviewItem from './ReviewItem'
 import ItemSeparator from './ItemSeparator'
 
 import useReviews from '../hooks/useReviews'
+import useDeleteReview from '../hooks/useDeleteReview'
 
-const ReviewListContainer = ({ reviews }) => {
+const ReviewListContainer = ({ reviews, deleteReview }) => {
 
   const reviewNodes = reviews
     ? reviews.edges.map((edge) => edge.node)
@@ -19,16 +20,25 @@ const ReviewListContainer = ({ reviews }) => {
       keyExtractor={(item) => item.id}
       onEndReachedThreshold={0.5}
       renderItem={({ item }) => (
-        <ReviewItem review={item} username={false} />
+        <ReviewItem review={item} username={false} deleteReview={deleteReview} />
       )}
     />
   );
 };
 
 const UserReviews = () => {
-  const { reviews, loading } = useReviews({ includeReviews: true });
+  const { reviews, loading, refetch } = useReviews({ includeReviews: true });
 
-  return <ReviewListContainer reviews={reviews} />;
+  const removeReview = useDeleteReview();
+
+  const deleteReview = (id) => {
+    removeReview(id);
+    refetch();
+  };
+
+  if (loading) return null;
+
+  return <ReviewListContainer reviews={reviews} deleteReview={deleteReview} />;
 };
 
 export default UserReviews;
