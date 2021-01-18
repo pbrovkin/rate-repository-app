@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
 
-import { AUTHORIZED_USER } from '../qraphql/queries'
+import { AUTHORIZED_USER } from '../qraphql/queries';
 
 const useReviews = (variables) => {
   const { data, loading, refetch } =
